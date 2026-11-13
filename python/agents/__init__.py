@@ -8,8 +8,9 @@ Módulos:
 - profile: `Profile`, parâmetros de comportamento de um agente.
 - styles: estilos (Conservador, Moderado, Agressivo) e `StyleRegistry`.
 - validation: `Side` e `FieldReader`, validação de dados vindos do C++.
-- market, suggester, report: em desenvolvimento (contexto de mercado,
-  sugestão de ordens e relatório final).
+- market: `MarketContext`, `AgentView`, `Suggestion`.
+- report: relatório final da simulação.
+- suggester: em desenvolvimento (sugestão de ordens).
 
 Função de entrada:
 - generate_profile: gera o perfil de um agente a partir de estilo, ajustes e semente.
@@ -20,6 +21,8 @@ import random
 from .profile import Profile
 from .validation import FieldReader, Side
 from .styles import Conservador, Moderado, Agressivo, StyleRegistry, StyleStrategy
+from .market import AgentView, MarketContext, Suggestion
+from .report import ParticipantResult, PortfolioView, Report, ReportCalculator, TradeRecord
 
 def generate_profile(style: str, overrides: dict, seed: int) -> dict:
     """
@@ -48,5 +51,7 @@ def generate_profile(style: str, overrides: dict, seed: int) -> dict:
 __all__ = [
     "Profile", # Profile
     "Side", "FieldReader", # Validation
-    "StyleStrategy", "Conservador", "Moderado", "Agressivo", "StyleRegistry" # Styles
+    "StyleStrategy", "Conservador", "Moderado", "Agressivo", "StyleRegistry", # Styles
+    "AgentView", "MarketContext", "Suggestion", # Market
+    "TradeRecord", "PortfolioView", "ParticipantResult", "Report", "ReportCalculator", # Report
     ]

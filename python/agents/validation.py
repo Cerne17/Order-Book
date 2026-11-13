@@ -89,6 +89,10 @@ class FieldReader:
             raise ValueError(f"'{self.path(key)}' fora da faixa [{low}, {high}]: {value}")
         return value
 
+    def integer(self, key: str) -> int:
+        """Lê um int qualquer (sem faixa)."""
+        return self.require_int(self._get(key), self.path(key))
+
     def positive(self, key: str) -> int:
         """Lê um int >= 1."""
         return self._int_at_least(key, 1)
@@ -118,3 +122,15 @@ class FieldReader:
         if not isinstance(value, dict):
             raise TypeError(f"'{self.path(key)}' deve ser dict, recebeu {type(value).__name__}")
         return value
+
+def require_list(value, name: str) -> list:
+    if not isinstance(value, list):
+        raise TypeError(f"'{name}' deve ser list, recebeu {type(value).__name__}")
+    return value
+
+def require_unique(values: list, name: str) -> None:
+    seen = set()
+    for value in values:
+        if value in seen:
+            raise ValueError(f"'{name}' duplicado: {value}")
+        seen.add(value)
